@@ -1,0 +1,156 @@
+@startuml BlackJackAPI Structure
+
+' ==================== PACKAGES ====================
+
+package "com.Ulises.BlackJackAPI.controller" #DDDDDD {
+    class AuthController
+    class GameController
+    class PlayerController
+    class RankingController
+}
+
+package "com.Ulises.BlackJackAPI.service" #FFDDDD {
+    class AuthService
+    class GameService
+    class PlayerService
+    class DeckService
+}
+
+package "com.Ulises.BlackJackAPI.domain.services" #DDFFDD {
+    class GameRulesEngine
+    class ScoreCalculator
+}
+
+package "com.Ulises.BlackJackAPI.domain.entity" #DDFFFF {
+    class PlayerEntity
+    class GameEntity
+    class HandEntity
+    class CardEntity
+    class DeckEntity
+}
+
+package "com.Ulises.BlackJackAPI.domain.factory" #DDFFDD {
+    class CardFactory
+}
+
+package "com.Ulises.BlackJackAPI.domain.enums" #FFFFDD {
+    enum GameStatus
+    enum GameResult
+    enum HandType
+    enum Rank
+    enum Suit
+}
+
+package "com.Ulises.BlackJackAPI.domain.valueobject" #FFDDEE {
+    class Card <<Value Object>>
+}
+
+package "com.Ulises.BlackJackAPI.repository" #EEDDFF {
+    interface PlayerRepository
+    interface GameRepository
+    interface HandRepository
+    interface CardRepository
+    interface DeckRepository
+}
+
+package "com.Ulises.BlackJackAPI.dto" #FFEEDD {
+    class ApiResponse<T>
+    class AuthResponse
+    class GameResponse
+    class PlayerResponse
+    class HandResponse
+    class CardResponse
+    class RankingResponse
+    class LoginRequest
+    class RegisterRequest
+    class PlayRequest
+    class UpdateUsernameRequest
+}
+
+package "com.Ulises.BlackJackAPI.security" #FFEEEE {
+    class JwtUtil
+    class JwtAuthenticationFilter
+    class PlayerUserDetails
+    class PlayerUserDetailsService
+}
+
+package "com.Ulises.BlackJackAPI.config" #EEFFEE {
+    class SecurityConfig
+}
+
+package "com.Ulises.BlackJackAPI.exception" #FFEEFF {
+    class GlobalExceptionHandler
+    class PlayerNotFoundException
+    class GameNotFoundException
+    class InvalidMoveException
+}
+
+' ==================== RELATIONSHIPS ====================
+
+' Controllers -> Services
+AuthController --> AuthService
+GameController --> GameService
+PlayerController --> PlayerService
+RankingController --> PlayerService
+
+' Services -> Repositories
+AuthService --> PlayerRepository
+GameService --> GameRepository
+GameService --> HandRepository
+GameService --> CardRepository
+GameService --> DeckRepository
+GameService --> PlayerService
+GameService --> DeckService
+GameService --> GameRulesEngine
+GameService --> ScoreCalculator
+GameService --> CardFactory
+PlayerService --> PlayerRepository
+DeckService --> DeckRepository
+
+' Entities -> Enums
+GameEntity --> GameStatus
+GameEntity --> GameResult
+HandEntity --> HandType
+CardEntity --> Rank
+CardEntity --> Suit
+DeckEntity --> Rank
+DeckEntity --> Suit
+
+' DTOs -> Entities/Enums/Value Objects
+ApiResponse --> ApiResponse
+GameResponse --> HandResponse
+GameResponse --> GameStatus
+GameResponse --> GameResult
+HandResponse --> HandType
+HandResponse --> CardResponse
+CardResponse --> Rank
+CardResponse --> Suit
+
+' Security
+SecurityConfig --> JwtAuthenticationFilter
+JwtAuthenticationFilter --> JwtUtil
+JwtAuthenticationFilter --> PlayerUserDetailsService
+PlayerUserDetailsService --> PlayerRepository
+PlayerUserDetails --> PlayerEntity
+
+' Exceptions -> DTOs
+GlobalExceptionHandler --> ApiResponse
+GameNotFoundException --|> RuntimeException
+PlayerNotFoundException --|> RuntimeException
+InvalidMoveException --|> RuntimeException
+
+' Entities relationships
+GameEntity --> "*" HandEntity
+HandEntity --> "*" CardEntity
+GameEntity --> "*" DeckEntity
+
+' Value Object relationships
+CardFactory ..> CardEntity
+CardFactory ..> HandEntity
+CardFactory ..> Card
+
+' Note about ScoreCalculator and GameRulesEngine
+note right of GameRulesEngine : Used in GameService for\ngame logic and scoring
+note right of ScoreCalculator : Used in GameService for\ncalculating hand scores
+
+@enduml
