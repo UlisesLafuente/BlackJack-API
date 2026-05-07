@@ -1,10 +1,10 @@
 package com.Ulises.BlackJackAPI.domain.factory;
 
-import com.Ulises.BlackJackAPI.domain.valueobject.Card;
 import com.Ulises.BlackJackAPI.domain.entity.CardEntity;
 import com.Ulises.BlackJackAPI.domain.entity.HandEntity;
 import com.Ulises.BlackJackAPI.domain.enums.Rank;
 import com.Ulises.BlackJackAPI.domain.enums.Suit;
+import com.Ulises.BlackJackAPI.domain.valueobject.Card;
 import org.springframework.stereotype.Component;
 
 @Component
