@@ -1,6 +1,8 @@
 package com.Ulises.BlackJackAPI.dto;
 
 import com.Ulises.BlackJackAPI.domain.enums.HandType;
+import lombok.Getter;
+
 import java.util.List;
 
 /**
@@ -9,6 +11,7 @@ import java.util.List;
  *
  * @author Ulises Lafuente
  */
+@Getter
 public class HandResponse {
     private Long id;
     private HandType type;
@@ -16,7 +19,8 @@ public class HandResponse {
     private Integer score;
     private List<CardResponse> cards;
 
-    public HandResponse() {}
+    public HandResponse() {
+    }
 
     public HandResponse(Long id, HandType type, Integer handIndex, Integer score, List<CardResponse> cards) {
         this.id = id;
@@ -26,14 +30,23 @@ public class HandResponse {
         this.cards = cards;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public HandType getType() { return type; }
-    public void setType(HandType type) { this.type = type; }
-    public Integer getHandIndex() { return handIndex; }
-    public void setHandIndex(Integer handIndex) { this.handIndex = handIndex; }
-    public Integer getScore() { return score; }
-    public void setScore(Integer score) { this.score = score; }
-    public List<CardResponse> getCards() { return cards; }
-    public void setCards(List<CardResponse> cards) { this.cards = cards; }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setType(HandType type) {
+        this.type = type;
+    }
+
+    public void setHandIndex(Integer handIndex) {
+        this.handIndex = handIndex;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public void setCards(List<CardResponse> cards) {
+        this.cards = cards;
+    }
 }

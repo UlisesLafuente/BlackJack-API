@@ -1,5 +1,7 @@
 package com.Ulises.BlackJackAPI.dto;
 
+import lombok.Getter;
+
 import java.util.List;
 
 /**
@@ -8,15 +10,18 @@ import java.util.List;
  *
  * @author Ulises Lafuente
  */
+@Getter
 public class RankingResponse {
     private List<PlayerResponse> rankings;
 
-    public RankingResponse() {}
+    public RankingResponse() {
+    }
 
     public RankingResponse(List<PlayerResponse> rankings) {
         this.rankings = rankings;
     }
 
-    public List<PlayerResponse> getRankings() { return rankings; }
-    public void setRankings(List<PlayerResponse> rankings) { this.rankings = rankings; }
+    public void setRankings(List<PlayerResponse> rankings) {
+        this.rankings = rankings;
+    }
 }
