@@ -22,7 +22,8 @@ public class HandEntity {
     @Column("score")
     private Integer score;
 
-    public HandEntity() {}
+    public HandEntity() {
+    }
 
     public HandEntity(Long gameId, HandType type, Integer handIndex) {
         this.gameId = gameId;
@@ -31,14 +32,43 @@ public class HandEntity {
         this.score = 0;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Long getGameId() { return gameId; }
-    public void setGameId(Long gameId) { this.gameId = gameId; }
-    public HandType getType() { return type; }
-    public void setType(HandType type) { this.type = type; }
-    public Integer getHandIndex() { return handIndex; }
-    public void setHandIndex(Integer handIndex) { this.handIndex = handIndex; }
-    public Integer getScore() { return score; }
-    public void setScore(Integer score) { this.score = score; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
+    }
+
+    public HandType getType() {
+        return type;
+    }
+
+    public void setType(HandType type) {
+        this.type = type;
+    }
+
+    public Integer getHandIndex() {
+        return handIndex;
+    }
+
+    public void setHandIndex(Integer handIndex) {
+        this.handIndex = handIndex;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
 }

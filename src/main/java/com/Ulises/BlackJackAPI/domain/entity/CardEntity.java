@@ -26,7 +26,8 @@ public class CardEntity {
     @Column("is_hidden")
     private Boolean isHidden;
 
-    public CardEntity() {}
+    public CardEntity() {
+    }
 
     public CardEntity(Long handId, Suit suit, Rank rank, Boolean isHidden) {
         this.handId = handId;
@@ -36,16 +37,51 @@ public class CardEntity {
         this.isHidden = isHidden;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Long getHandId() { return handId; }
-    public void setHandId(Long handId) { this.handId = handId; }
-    public Suit getSuit() { return suit; }
-    public void setSuit(Suit suit) { this.suit = suit; }
-    public Rank getRank() { return rank; }
-    public void setRank(Rank rank) { this.rank = rank; }
-    public Integer getValue() { return value; }
-    public void setValue(Integer value) { this.value = value; }
-    public Boolean getIsHidden() { return isHidden; }
-    public void setIsHidden(Boolean isHidden) { this.isHidden = isHidden; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getHandId() {
+        return handId;
+    }
+
+    public void setHandId(Long handId) {
+        this.handId = handId;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public void setSuit(Suit suit) {
+        this.suit = suit;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public Boolean getIsHidden() {
+        return isHidden;
+    }
+
+    public void setIsHidden(Boolean isHidden) {
+        this.isHidden = isHidden;
+    }
 }

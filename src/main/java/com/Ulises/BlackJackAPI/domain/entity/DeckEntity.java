@@ -26,7 +26,8 @@ public class DeckEntity {
     @Column("drawn")
     private Boolean drawn;
 
-    public DeckEntity() {}
+    public DeckEntity() {
+    }
 
     public DeckEntity(Long gameId, Suit suit, Rank rank) {
         this.gameId = gameId;
@@ -40,16 +41,51 @@ public class DeckEntity {
         return rank != null ? Rank.valueOf(rank) : null;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Long getGameId() { return gameId; }
-    public void setGameId(Long gameId) { this.gameId = gameId; }
-    public Suit getSuit() { return suit; }
-    public void setSuit(Suit suit) { this.suit = suit; }
-    public String getRank() { return rank; }
-    public void setRank(String rank) { this.rank = rank; }
-    public Integer getValue() { return value; }
-    public void setValue(Integer value) { this.value = value; }
-    public Boolean getDrawn() { return drawn; }
-    public void setDrawn(Boolean drawn) { this.drawn = drawn; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Long gameId) {
+        this.gameId = gameId;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public void setSuit(Suit suit) {
+        this.suit = suit;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public Boolean getDrawn() {
+        return drawn;
+    }
+
+    public void setDrawn(Boolean drawn) {
+        this.drawn = drawn;
+    }
 }

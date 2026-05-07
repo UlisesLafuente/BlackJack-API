@@ -5,6 +5,7 @@ import com.Ulises.BlackJackAPI.domain.enums.GameStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+
 import java.time.LocalDateTime;
 
 @Table("games")
@@ -36,7 +37,8 @@ public class GameEntity {
     @Column("created_at")
     private LocalDateTime createdAt;
 
-    public GameEntity() {}
+    public GameEntity() {
+    }
 
     public GameEntity(Long playerId) {
         this.playerId = playerId;
@@ -49,22 +51,75 @@ public class GameEntity {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Long getPlayerId() { return playerId; }
-    public void setPlayerId(Long playerId) { this.playerId = playerId; }
-    public Integer getBet() { return bet; }
-    public void setBet(Integer bet) { this.bet = bet; }
-    public Integer getInsuranceBet() { return insuranceBet; }
-    public void setInsuranceBet(Integer insuranceBet) { this.insuranceBet = insuranceBet; }
-    public GameStatus getStatus() { return status; }
-    public void setStatus(GameStatus status) { this.status = status; }
-    public GameResult getResult() { return result; }
-    public void setResult(GameResult result) { this.result = result; }
-    public Integer getPlayerScore() { return playerScore; }
-    public void setPlayerScore(Integer playerScore) { this.playerScore = playerScore; }
-    public Integer getCroupierScore() { return croupierScore; }
-    public void setCroupierScore(Integer croupierScore) { this.croupierScore = croupierScore; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(Long playerId) {
+        this.playerId = playerId;
+    }
+
+    public Integer getBet() {
+        return bet;
+    }
+
+    public void setBet(Integer bet) {
+        this.bet = bet;
+    }
+
+    public Integer getInsuranceBet() {
+        return insuranceBet;
+    }
+
+    public void setInsuranceBet(Integer insuranceBet) {
+        this.insuranceBet = insuranceBet;
+    }
+
+    public GameStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GameStatus status) {
+        this.status = status;
+    }
+
+    public GameResult getResult() {
+        return result;
+    }
+
+    public void setResult(GameResult result) {
+        this.result = result;
+    }
+
+    public Integer getPlayerScore() {
+        return playerScore;
+    }
+
+    public void setPlayerScore(Integer playerScore) {
+        this.playerScore = playerScore;
+    }
+
+    public Integer getCroupierScore() {
+        return croupierScore;
+    }
+
+    public void setCroupierScore(Integer croupierScore) {
+        this.croupierScore = croupierScore;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }
