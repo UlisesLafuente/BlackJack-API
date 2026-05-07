@@ -1,10 +1,10 @@
 package com.Ulises.BlackJackAPI.service;
 
+import com.Ulises.BlackJackAPI.domain.entity.PlayerEntity;
 import com.Ulises.BlackJackAPI.dto.AuthResponse;
 import com.Ulises.BlackJackAPI.dto.LoginRequest;
 import com.Ulises.BlackJackAPI.dto.RegisterRequest;
 import com.Ulises.BlackJackAPI.exception.PlayerNotFoundException;
-import com.Ulises.BlackJackAPI.domain.entity.PlayerEntity;
 import com.Ulises.BlackJackAPI.repository.PlayerRepository;
 import com.Ulises.BlackJackAPI.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;

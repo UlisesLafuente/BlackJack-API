@@ -1,23 +1,23 @@
 package com.Ulises.BlackJackAPI.service;
 
-import com.Ulises.BlackJackAPI.domain.factory.CardFactory;
-import com.Ulises.BlackJackAPI.domain.services.GameRulesEngine;
-import com.Ulises.BlackJackAPI.domain.services.ScoreCalculator;
-import com.Ulises.BlackJackAPI.dto.GameResponse;
-import com.Ulises.BlackJackAPI.dto.HandResponse;
-import com.Ulises.BlackJackAPI.dto.CardResponse;
-import com.Ulises.BlackJackAPI.dto.PlayRequest;
-import com.Ulises.BlackJackAPI.exception.GameNotFoundException;
-import com.Ulises.BlackJackAPI.exception.InvalidMoveException;
+import com.Ulises.BlackJackAPI.domain.entity.CardEntity;
 import com.Ulises.BlackJackAPI.domain.entity.GameEntity;
 import com.Ulises.BlackJackAPI.domain.entity.HandEntity;
-import com.Ulises.BlackJackAPI.domain.entity.CardEntity;
 import com.Ulises.BlackJackAPI.domain.enums.GameResult;
 import com.Ulises.BlackJackAPI.domain.enums.GameStatus;
 import com.Ulises.BlackJackAPI.domain.enums.HandType;
+import com.Ulises.BlackJackAPI.domain.factory.CardFactory;
+import com.Ulises.BlackJackAPI.domain.services.GameRulesEngine;
+import com.Ulises.BlackJackAPI.domain.services.ScoreCalculator;
+import com.Ulises.BlackJackAPI.dto.CardResponse;
+import com.Ulises.BlackJackAPI.dto.GameResponse;
+import com.Ulises.BlackJackAPI.dto.HandResponse;
+import com.Ulises.BlackJackAPI.dto.PlayRequest;
+import com.Ulises.BlackJackAPI.exception.GameNotFoundException;
+import com.Ulises.BlackJackAPI.exception.InvalidMoveException;
+import com.Ulises.BlackJackAPI.repository.CardRepository;
 import com.Ulises.BlackJackAPI.repository.GameRepository;
 import com.Ulises.BlackJackAPI.repository.HandRepository;
-import com.Ulises.BlackJackAPI.repository.CardRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -169,7 +169,6 @@ public class GameService {
                         }));
     }
 
-    
 
     private Mono<GameResponse> checkInsuranceOption(GameEntity game) {
         return handRepository.findByGameIdAndTypeAndHandIndex(game.getId(), HandType.CROUPIER, 0)
@@ -456,11 +455,6 @@ public class GameService {
                 .map(handCardsList -> mapToGameResponseWithHands(game, handCardsList, revealCroupier));
     }
 
-    private static class HandWithCards {
-        HandEntity hand;
-        List<CardEntity> cards;
-    }
-
     private Mono<GameResponse> mapToGameResponse(GameEntity game) {
         return mapToGameResponseWithMessage(game, null);
     }
@@ -505,5 +499,10 @@ public class GameService {
                 game.getStatus(), game.getResult(), game.getPlayerScore(), game.getCroupierScore(),
                 hands, null
         );
+    }
+
+    private static class HandWithCards {
+        HandEntity hand;
+        List<CardEntity> cards;
     }
 }
