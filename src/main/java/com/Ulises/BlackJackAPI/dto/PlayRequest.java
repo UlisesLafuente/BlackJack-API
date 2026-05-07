@@ -1,6 +1,7 @@
 package com.Ulises.BlackJackAPI.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * DTO for game play action requests.
@@ -8,6 +9,7 @@ import lombok.Getter;
  *
  * @author Ulises Lafuente
  */
+@Setter
 @Getter
 public class PlayRequest {
     private String action;
@@ -23,15 +25,4 @@ public class PlayRequest {
         this.handIndex = handIndex;
     }
 
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public void setBet(Integer bet) {
-        this.bet = bet;
-    }
-
-    public void setHandIndex(Integer handIndex) {
-        this.handIndex = handIndex;
-    }
 }

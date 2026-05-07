@@ -1,12 +1,14 @@
 package com.Ulises.BlackJackAPI.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * DTO for player information responses.
  *
  * @author Ulises Lafuente
  */
+@Setter
 @Getter
 public class PlayerResponse {
     private Long id;
@@ -22,15 +24,4 @@ public class PlayerResponse {
         this.score = score;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
 }

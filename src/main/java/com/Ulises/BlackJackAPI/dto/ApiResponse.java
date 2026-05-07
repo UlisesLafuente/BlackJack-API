@@ -1,6 +1,7 @@
 package com.Ulises.BlackJackAPI.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Generic API response wrapper.
@@ -9,6 +10,7 @@ import lombok.Getter;
  * @param <T> The data type of the response
  * @author Ulises Lafuente
  */
+@Setter
 @Getter
 public class ApiResponse<T> {
     private int code;
@@ -36,15 +38,4 @@ public class ApiResponse<T> {
         return new ApiResponse<>(code, message, null);
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
 }

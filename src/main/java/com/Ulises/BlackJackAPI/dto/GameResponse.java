@@ -3,6 +3,7 @@ package com.Ulises.BlackJackAPI.dto;
 import com.Ulises.BlackJackAPI.domain.enums.GameResult;
 import com.Ulises.BlackJackAPI.domain.enums.GameStatus;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  *
  * @author Ulises Lafuente
  */
+@Setter
 @Getter
 public class GameResponse {
     private Long id;
@@ -43,43 +45,4 @@ public class GameResponse {
         this.message = message;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPlayerId(Long playerId) {
-        this.playerId = playerId;
-    }
-
-    public void setBet(Integer bet) {
-        this.bet = bet;
-    }
-
-    public void setInsuranceBet(Integer insuranceBet) {
-        this.insuranceBet = insuranceBet;
-    }
-
-    public void setStatus(GameStatus status) {
-        this.status = status;
-    }
-
-    public void setResult(GameResult result) {
-        this.result = result;
-    }
-
-    public void setPlayerScore(Integer playerScore) {
-        this.playerScore = playerScore;
-    }
-
-    public void setCroupierScore(Integer croupierScore) {
-        this.croupierScore = croupierScore;
-    }
-
-    public void setHands(List<HandResponse> hands) {
-        this.hands = hands;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

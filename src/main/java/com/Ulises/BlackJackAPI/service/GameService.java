@@ -141,12 +141,11 @@ public class GameService {
                                     var playerCard2 = cards.get(1);
                                     var croupierCard1 = cards.get(2);
                                     var croupierCard2 = cards.get(3);
-                                    croupierCard2.setHidden(true);
 
-                                    CardEntity pc1 = cardFactory.createCardEntity(ph, playerCard1.getSuit(), playerCard1.getRank(), false);
-                                    CardEntity pc2 = cardFactory.createCardEntity(ph, playerCard2.getSuit(), playerCard2.getRank(), false);
-                                    CardEntity cc1 = cardFactory.createCardEntity(ch, croupierCard1.getSuit(), croupierCard1.getRank(), false);
-                                    CardEntity cc2 = cardFactory.createCardEntity(ch, croupierCard2.getSuit(), croupierCard2.getRank(), true);
+                                    CardEntity pc1 = cardFactory.createCardEntity(ph, playerCard1.suit(), playerCard1.rank(), false);
+                                    CardEntity pc2 = cardFactory.createCardEntity(ph, playerCard2.suit(), playerCard2.rank(), false);
+                                    CardEntity cc1 = cardFactory.createCardEntity(ch, croupierCard1.suit(), croupierCard1.rank(), false);
+                                    CardEntity cc2 = cardFactory.createCardEntity(ch, croupierCard2.suit(), croupierCard2.rank(), true);
 
                                     return cardRepository.saveAll(List.of(pc1, pc2, cc1, cc2)).then();
                                 })));
@@ -157,7 +156,7 @@ public class GameService {
                 .flatMap(playerHand -> cardRepository.findByHandIdOrderById(playerHand.getId())
                         .collectList()
                         .flatMap(cards -> {
-                            int score = scoreCalculator.calculateHandScore(cards.stream().map(cardFactory::toDomainCard).toList());
+int score = scoreCalculator.calculateHandScore(cards);
                             playerHand.setScore(score);
                             return handRepository.save(playerHand)
                                     .flatMap(saved -> {
@@ -191,7 +190,7 @@ public class GameService {
                 .flatMap(croupierHand -> cardRepository.findByHandIdOrderById(croupierHand.getId())
                         .collectList()
                         .flatMap(croupierCards -> {
-                            int croupierScore = scoreCalculator.calculateHandScore(croupierCards.stream().map(cardFactory::toDomainCard).toList());
+                            int croupierScore = scoreCalculator.calculateHandScore(croupierCards);
                             croupierHand.setScore(croupierScore);
                             return handRepository.save(croupierHand);
                         })
@@ -240,7 +239,7 @@ public class GameService {
                 .switchIfEmpty(Mono.error(new InvalidMoveException("Hand not found")))
                 .flatMap(hand -> deckService.drawCard(game.getId())
                         .flatMap(card -> {
-                            CardEntity cardEntity = cardFactory.createCardEntity(hand, card.getSuit(), card.getRank(), false);
+                            CardEntity cardEntity = cardFactory.createCardEntity(hand, card.suit(), card.rank(), false);
                             return cardRepository.save(cardEntity)
                                     .flatMap(saved -> updateHandScore(game, hand));
                         }));
@@ -289,7 +288,7 @@ public class GameService {
                     return gameRepository.save(game)
                             .flatMap(saved -> deckService.drawCard(game.getId())
                                     .flatMap(card -> {
-                                        CardEntity cardEntity = cardFactory.createCardEntity(hand, card.getSuit(), card.getRank(), false);
+                                        CardEntity cardEntity = cardFactory.createCardEntity(hand, card.suit(), card.rank(), false);
                                         return cardRepository.save(cardEntity)
                                                 .flatMap(savedCard -> updateHandScoreAfterAction(game, hand));
                                     }));
@@ -341,8 +340,8 @@ public class GameService {
                                                         }
                                                         CardEntity c1 = cardFactory.createCardEntity(h1, card1.getSuit(), card1.getRank(), false);
                                                         CardEntity c2 = cardFactory.createCardEntity(h2, card2.getSuit(), card2.getRank(), false);
-                                                        CardEntity c3 = cardFactory.createCardEntity(h1, drawnCards.get(0).getSuit(), drawnCards.get(0).getRank(), false);
-                                                        CardEntity c4 = cardFactory.createCardEntity(h2, drawnCards.get(1).getSuit(), drawnCards.get(1).getRank(), false);
+                                                        CardEntity c3 = cardFactory.createCardEntity(h1, drawnCards.get(0).suit(), drawnCards.get(0).rank(), false);
+                                                        CardEntity c4 = cardFactory.createCardEntity(h2, drawnCards.get(1).suit(), drawnCards.get(1).rank(), false);
                                                         return cardRepository.saveAll(List.of(c1, c2, c3, c4)).then();
                                                     })
                                             )
@@ -359,7 +358,7 @@ public class GameService {
         return cardRepository.findByHandIdOrderById(hand.getId())
                 .collectList()
                 .flatMap(cards -> {
-                    int score = scoreCalculator.calculateHandScore(cards.stream().map(cardFactory::toDomainCard).toList());
+                    int score = scoreCalculator.calculateHandScore(cards);
                     hand.setScore(score);
                     return handRepository.save(hand);
                 })
@@ -375,7 +374,7 @@ public class GameService {
         return cardRepository.findByHandIdOrderById(hand.getId())
                 .collectList()
                 .flatMap(cards -> {
-                    int score = scoreCalculator.calculateHandScore(cards.stream().map(cardFactory::toDomainCard).toList());
+                    int score = scoreCalculator.calculateHandScore(cards);
                     hand.setScore(score);
                     return handRepository.save(hand);
                 })
@@ -399,7 +398,7 @@ public class GameService {
         return cardRepository.findByHandIdOrderById(croupierHand.getId())
                 .collectList()
                 .flatMap(cards -> {
-                    int score = scoreCalculator.calculateHandScore(cards.stream().map(cardFactory::toDomainCard).toList());
+                    int score = scoreCalculator.calculateHandScore(cards);
                     croupierHand.setScore(score);
                     return handRepository.save(croupierHand);
                 })
@@ -407,7 +406,7 @@ public class GameService {
                     if (scoreCalculator.shouldDealerHit(hand)) {
                         return deckService.drawCard(game.getId())
                                 .flatMap(card -> {
-                                    CardEntity cardEntity = cardFactory.createCardEntity(hand, card.getSuit(), card.getRank(), false);
+                                    CardEntity cardEntity = cardFactory.createCardEntity(hand, card.suit(), card.rank(), false);
                                     return cardRepository.save(cardEntity)
                                             .flatMap(saved -> handleDealerTurn(hand, game));
                                 });

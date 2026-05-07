@@ -5,6 +5,12 @@ import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 
+/**
+ * Repository for Card entities.
+ * Provides reactive data access operations for card management.
+ *
+ * @author Ulises Lafuente
+ */
 public interface CardRepository extends ReactiveCrudRepository<CardEntity, Long> {
 
     @Query("SELECT * FROM cards WHERE hand_id = :handId ORDER BY id")

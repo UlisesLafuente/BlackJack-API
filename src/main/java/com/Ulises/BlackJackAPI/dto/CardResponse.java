@@ -3,6 +3,7 @@ package com.Ulises.BlackJackAPI.dto;
 import com.Ulises.BlackJackAPI.domain.enums.Rank;
 import com.Ulises.BlackJackAPI.domain.enums.Suit;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * DTO for card responses.
@@ -10,6 +11,7 @@ import lombok.Getter;
  *
  * @author Ulises Lafuente
  */
+@Setter
 @Getter
 public class CardResponse {
     private Suit suit;
@@ -27,19 +29,4 @@ public class CardResponse {
         this.isHidden = isHidden;
     }
 
-    public void setSuit(Suit suit) {
-        this.suit = suit;
-    }
-
-    public void setRank(Rank rank) {
-        this.rank = rank;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public void setHidden(boolean hidden) {
-        isHidden = hidden;
-    }
 }

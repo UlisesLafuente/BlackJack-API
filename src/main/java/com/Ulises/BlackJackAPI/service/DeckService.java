@@ -3,7 +3,6 @@ package com.Ulises.BlackJackAPI.service;
 import com.Ulises.BlackJackAPI.domain.entity.DeckEntity;
 import com.Ulises.BlackJackAPI.domain.enums.Rank;
 import com.Ulises.BlackJackAPI.domain.enums.Suit;
-import com.Ulises.BlackJackAPI.domain.valueobject.Card;
 import com.Ulises.BlackJackAPI.repository.DeckRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -33,31 +32,33 @@ public class DeckService {
         return deckRepository.saveAll(deck).then();
     }
 
-    public Mono<Card> drawCard(Long gameId) {
+    public Mono<DrawnCard> drawCard(Long gameId) {
         return deckRepository.findFirstAvailableByGameId(gameId)
                 .flatMap(card -> {
                     String rankStr = card.getRank();
                     if (rankStr == null) {
                         return Mono.error(new RuntimeException("Card rank is null from database"));
                     }
-                    Card cardObj = new Card(card.getSuit(), Rank.valueOf(rankStr));
-                    return deckRepository.markAsDrawn(card.getId()).thenReturn(cardObj);
+                    DrawnCard drawnCard = new DrawnCard(card.getSuit(), Rank.valueOf(rankStr));
+                    return deckRepository.markAsDrawn(card.getId()).thenReturn(drawnCard);
                 });
     }
 
-    public Flux<Card> drawCards(Long gameId, int count) {
+    public Flux<DrawnCard> drawCards(Long gameId, int count) {
         return deckRepository.findAvailableByGameId(gameId, count)
                 .flatMap(card -> {
                     String rankStr = card.getRank();
                     if (rankStr == null) {
                         return Mono.error(new RuntimeException("Card rank is null from database"));
                     }
-                    Card cardObj = new Card(card.getSuit(), Rank.valueOf(rankStr));
-                    return deckRepository.markAsDrawn(card.getId()).thenReturn(cardObj);
+                    DrawnCard drawnCard = new DrawnCard(card.getSuit(), Rank.valueOf(rankStr));
+                    return deckRepository.markAsDrawn(card.getId()).thenReturn(drawnCard);
                 });
     }
 
     public Mono<Void> deleteDeckByGameId(Long gameId) {
         return deckRepository.deleteByGameId(gameId).then();
     }
+
+    public record DrawnCard(Suit suit, Rank rank) {}
 }

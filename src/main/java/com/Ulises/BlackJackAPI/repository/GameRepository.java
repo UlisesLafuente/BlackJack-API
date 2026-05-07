@@ -6,6 +6,12 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Repository for Game entities.
+ * Provides reactive data access operations for game management.
+ *
+ * @author Ulises Lafuente
+ */
 public interface GameRepository extends ReactiveCrudRepository<GameEntity, Long> {
 
     @Query("SELECT * FROM games WHERE player_id = :playerId")

@@ -7,6 +7,12 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Repository for Hand entities.
+ * Provides reactive data access operations for hand management.
+ *
+ * @author Ulises Lafuente
+ */
 public interface HandRepository extends ReactiveCrudRepository<HandEntity, Long> {
 
     @Query("SELECT * FROM hands WHERE game_id = :gameId")

@@ -1,6 +1,7 @@
 package com.Ulises.BlackJackAPI.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  *
  * @author Ulises Lafuente
  */
+@Setter
 @Getter
 public class RankingResponse {
     private List<PlayerResponse> rankings;
@@ -21,7 +23,4 @@ public class RankingResponse {
         this.rankings = rankings;
     }
 
-    public void setRankings(List<PlayerResponse> rankings) {
-        this.rankings = rankings;
-    }
 }

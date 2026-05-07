@@ -1,12 +1,14 @@
 package com.Ulises.BlackJackAPI.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * DTO for player registration requests.
  *
  * @author Ulises Lafuente
  */
+@Setter
 @Getter
 public class RegisterRequest {
     private String username;
@@ -20,11 +22,4 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
