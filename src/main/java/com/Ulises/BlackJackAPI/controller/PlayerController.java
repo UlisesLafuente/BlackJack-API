@@ -8,6 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+/**
+ * REST Controller for player operations.
+ * Handles player profile updates.
+ *
+ * @author Ulises Lafuente
+ */
 @RestController
 @RequestMapping("/player")
 public class PlayerController {

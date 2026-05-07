@@ -1,5 +1,11 @@
 package com.Ulises.BlackJackAPI.dto;
 
+/**
+ * DTO for authentication responses.
+ * Contains JWT token and player information after login/register.
+ *
+ * @author Ulises Lafuente
+ */
 public class AuthResponse {
     private String token;
     private Long playerId;

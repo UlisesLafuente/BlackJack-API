@@ -1,7 +1,7 @@
-package com.Ulises.BlackJackAPI.domain.service;
+package com.Ulises.BlackJackAPI.domain.services;
 
-import com.Ulises.BlackJackAPI.model.enums.GameResult;
-import com.Ulises.BlackJackAPI.model.entity.PlayerEntity;
+import com.Ulises.BlackJackAPI.domain.enums.GameResult;
+import com.Ulises.BlackJackAPI.domain.entity.PlayerEntity;
 import com.Ulises.BlackJackAPI.repository.PlayerRepository;
 import reactor.core.publisher.Mono;
 

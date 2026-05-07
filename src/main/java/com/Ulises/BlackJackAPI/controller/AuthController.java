@@ -7,6 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+/**
+ * REST Controller for authentication operations.
+ * Handles player registration and login.
+ *
+ * @author Ulises Lafuente
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

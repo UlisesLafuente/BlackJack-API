@@ -1,20 +1,20 @@
 package com.Ulises.BlackJackAPI.service;
 
 import com.Ulises.BlackJackAPI.domain.factory.CardFactory;
-import com.Ulises.BlackJackAPI.domain.service.GameRulesEngine;
-import com.Ulises.BlackJackAPI.domain.service.ScoreCalculator;
+import com.Ulises.BlackJackAPI.domain.services.GameRulesEngine;
+import com.Ulises.BlackJackAPI.domain.services.ScoreCalculator;
 import com.Ulises.BlackJackAPI.dto.GameResponse;
 import com.Ulises.BlackJackAPI.dto.HandResponse;
 import com.Ulises.BlackJackAPI.dto.CardResponse;
 import com.Ulises.BlackJackAPI.dto.PlayRequest;
 import com.Ulises.BlackJackAPI.exception.GameNotFoundException;
 import com.Ulises.BlackJackAPI.exception.InvalidMoveException;
-import com.Ulises.BlackJackAPI.model.entity.GameEntity;
-import com.Ulises.BlackJackAPI.model.entity.HandEntity;
-import com.Ulises.BlackJackAPI.model.entity.CardEntity;
-import com.Ulises.BlackJackAPI.model.enums.GameResult;
-import com.Ulises.BlackJackAPI.model.enums.GameStatus;
-import com.Ulises.BlackJackAPI.model.enums.HandType;
+import com.Ulises.BlackJackAPI.domain.entity.GameEntity;
+import com.Ulises.BlackJackAPI.domain.entity.HandEntity;
+import com.Ulises.BlackJackAPI.domain.entity.CardEntity;
+import com.Ulises.BlackJackAPI.domain.enums.GameResult;
+import com.Ulises.BlackJackAPI.domain.enums.GameStatus;
+import com.Ulises.BlackJackAPI.domain.enums.HandType;
 import com.Ulises.BlackJackAPI.repository.GameRepository;
 import com.Ulises.BlackJackAPI.repository.HandRepository;
 import com.Ulises.BlackJackAPI.repository.CardRepository;
@@ -23,6 +23,12 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+/**
+ * Service for managing blackjack game operations.
+ * Handles game creation, gameplay actions (hit, stand, double, split), and game resolution.
+ *
+ * @author Ulises Lafuente
+ */
 @Service
 public class GameService {
 
@@ -58,7 +64,7 @@ public class GameService {
         GameEntity game = new GameEntity(playerId);
         return gameRepository.save(game)
                 .flatMap(saved -> deckService.createDeckForGame(saved.getId()).thenReturn(saved))
-                .map(this::mapToGameResponse);
+                .flatMap(this::mapToGameResponse);
     }
 
     public Mono<GameResponse> getGame(Long gameId, Long playerId) {
@@ -170,13 +176,13 @@ public class GameService {
                 .flatMap(croupierHand -> cardRepository.findByHandIdOrderById(croupierHand.getId())
                         .take(1)
                         .last()
-                        .map(card -> card.getRank() == com.Ulises.BlackJackAPI.model.enums.Rank.ACE)
+                        .map(card -> card.getRank() == com.Ulises.BlackJackAPI.domain.enums.Rank.ACE)
                         .defaultIfEmpty(false))
                 .flatMap(canInsurance -> {
                     if (Boolean.TRUE.equals(canInsurance)) {
-                        return Mono.just(mapToGameResponseWithMessage(game, "Insurance available"));
+                        return mapToGameResponseWithMessage(game, "Insurance available");
                     }
-                    return croupierTurn(game).onErrorResume(e -> Mono.just(mapToGameResponse(game)));
+                    return croupierTurn(game).onErrorResume(e -> mapToGameResponse(game));
                 })
                 .onErrorResume(e -> croupierTurn(game));
     }
@@ -259,7 +265,7 @@ public class GameService {
                     if (rulesEngine.allPlayerHandsPlayed(allHands, lastHand)) {
                         return croupierTurn(game);
                     }
-                    return Mono.just(mapToGameResponse(game));
+                    return mapToGameResponse(game);
                 });
     }
 
@@ -455,17 +461,16 @@ public class GameService {
         List<CardEntity> cards;
     }
 
-    private GameResponse mapToGameResponse(GameEntity game) {
+    private Mono<GameResponse> mapToGameResponse(GameEntity game) {
         return mapToGameResponseWithMessage(game, null);
     }
 
-    private GameResponse mapToGameResponseWithMessage(GameEntity game, String message) {
+    private Mono<GameResponse> mapToGameResponseWithMessage(GameEntity game, String message) {
         return loadGameDetails(game, false)
                 .map(resp -> {
                     resp.setMessage(message);
                     return resp;
-                })
-                .block();
+                });
     }
 
     private GameResponse mapToGameResponseWithHands(GameEntity game, List<HandWithCards> handCardsList, boolean revealCroupier) {

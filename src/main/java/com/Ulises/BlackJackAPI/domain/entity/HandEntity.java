@@ -1,6 +1,6 @@
-package com.Ulises.BlackJackAPI.model.entity;
+package com.Ulises.BlackJackAPI.domain.entity;
 
-import com.Ulises.BlackJackAPI.model.enums.HandType;
+import com.Ulises.BlackJackAPI.domain.enums.HandType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;

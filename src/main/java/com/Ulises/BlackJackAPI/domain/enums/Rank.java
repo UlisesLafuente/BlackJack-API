@@ -1,5 +1,10 @@
-package com.Ulises.BlackJackAPI.model.enums;
+package com.Ulises.BlackJackAPI.domain.enums;
 
+/**
+ * Enum representing the rank of a playing card.
+ *
+ * @author Ulises Lafuente
+ */
 public enum Rank {
     ACE(11),
     TWO(2),

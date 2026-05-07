@@ -1,13 +1,10 @@
-package com.Ulises.BlackJackAPI.domain.service;
+package com.Ulises.BlackJackAPI.domain.services;
 
-import com.Ulises.BlackJackAPI.domain.game.Card;
-import com.Ulises.BlackJackAPI.domain.game.Hand;
-import com.Ulises.BlackJackAPI.model.enums.GameStatus;
-import com.Ulises.BlackJackAPI.model.enums.HandType;
-import com.Ulises.BlackJackAPI.model.entity.GameEntity;
-import com.Ulises.BlackJackAPI.model.entity.HandEntity;
+import com.Ulises.BlackJackAPI.domain.enums.GameStatus;
+import com.Ulises.BlackJackAPI.domain.enums.HandType;
+import com.Ulises.BlackJackAPI.domain.entity.GameEntity;
+import com.Ulises.BlackJackAPI.domain.entity.HandEntity;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 

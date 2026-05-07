@@ -1,5 +1,10 @@
 package com.Ulises.BlackJackAPI.dto;
 
+/**
+ * DTO for updating player username requests.
+ *
+ * @author Ulises Lafuente
+ */
 public class UpdateUsernameRequest {
     private String username;
 

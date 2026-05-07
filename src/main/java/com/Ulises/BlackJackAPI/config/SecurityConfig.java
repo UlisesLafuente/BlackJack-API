@@ -10,6 +10,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
+/**
+ * Security configuration for the BlackJack API.
+ * Configures JWT authentication and authorization rules.
+ *
+ * @author Ulises Lafuente
+ */
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {

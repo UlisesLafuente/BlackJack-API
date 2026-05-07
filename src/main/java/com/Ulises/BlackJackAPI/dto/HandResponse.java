@@ -1,8 +1,14 @@
 package com.Ulises.BlackJackAPI.dto;
 
-import com.Ulises.BlackJackAPI.model.enums.HandType;
+import com.Ulises.BlackJackAPI.domain.enums.HandType;
 import java.util.List;
 
+/**
+ * DTO for hand responses.
+ * Contains hand details including type, score, and cards.
+ *
+ * @author Ulises Lafuente
+ */
 public class HandResponse {
     private Long id;
     private HandType type;

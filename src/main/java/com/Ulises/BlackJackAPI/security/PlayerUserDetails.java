@@ -1,6 +1,6 @@
 package com.Ulises.BlackJackAPI.security;
 
-import com.Ulises.BlackJackAPI.model.entity.PlayerEntity;
+import com.Ulises.BlackJackAPI.domain.entity.PlayerEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Custom UserDetails implementation for player authentication.
+ * Wraps PlayerEntity for Spring Security authentication.
+ *
+ * @author Ulises Lafuente
+ */
 public class PlayerUserDetails implements UserDetails {
 
     private final Long playerId;

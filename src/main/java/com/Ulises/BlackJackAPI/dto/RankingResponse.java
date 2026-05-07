@@ -2,6 +2,12 @@ package com.Ulises.BlackJackAPI.dto;
 
 import java.util.List;
 
+/**
+ * DTO for player ranking responses.
+ * Contains a list of players ordered by score.
+ *
+ * @author Ulises Lafuente
+ */
 public class RankingResponse {
     private List<PlayerResponse> rankings;
 

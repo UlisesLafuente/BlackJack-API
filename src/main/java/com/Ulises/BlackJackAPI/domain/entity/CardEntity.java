@@ -1,7 +1,7 @@
-package com.Ulises.BlackJackAPI.model.entity;
+package com.Ulises.BlackJackAPI.domain.entity;
 
-import com.Ulises.BlackJackAPI.model.enums.Rank;
-import com.Ulises.BlackJackAPI.model.enums.Suit;
+import com.Ulises.BlackJackAPI.domain.enums.Rank;
+import com.Ulises.BlackJackAPI.domain.enums.Suit;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -17,7 +17,7 @@ public class CardEntity {
     @Column("suit")
     private Suit suit;
 
-    @Column("rank")
+    @Column("card_rank")
     private Rank rank;
 
     @Column("value")

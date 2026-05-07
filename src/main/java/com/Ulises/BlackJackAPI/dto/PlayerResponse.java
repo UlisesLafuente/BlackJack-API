@@ -1,5 +1,10 @@
 package com.Ulises.BlackJackAPI.dto;
 
+/**
+ * DTO for player information responses.
+ *
+ * @author Ulises Lafuente
+ */
 public class PlayerResponse {
     private Long id;
     private String username;

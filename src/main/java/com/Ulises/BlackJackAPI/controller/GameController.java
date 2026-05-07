@@ -11,6 +11,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+/**
+ * REST Controller for game operations.
+ * Handles creating, retrieving, playing, and deleting blackjack games.
+ *
+ * @author Ulises Lafuente
+ */
 @RestController
 @RequestMapping("/game")
 public class GameController {

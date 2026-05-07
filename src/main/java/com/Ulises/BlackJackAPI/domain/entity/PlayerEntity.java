@@ -1,4 +1,4 @@
-package com.Ulises.BlackJackAPI.model.entity;
+package com.Ulises.BlackJackAPI.domain.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;

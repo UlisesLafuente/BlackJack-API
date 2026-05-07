@@ -9,6 +9,12 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
+/**
+ * WebFilter for JWT authentication.
+ * Intercepts requests and validates JWT tokens for authentication.
+ *
+ * @author Ulises Lafuente
+ */
 @Component
 public class JwtAuthenticationFilter implements WebFilter {
 

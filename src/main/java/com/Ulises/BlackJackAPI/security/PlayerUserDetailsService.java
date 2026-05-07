@@ -1,12 +1,18 @@
 package com.Ulises.BlackJackAPI.security;
 
-import com.Ulises.BlackJackAPI.model.entity.PlayerEntity;
+import com.Ulises.BlackJackAPI.domain.entity.PlayerEntity;
 import com.Ulises.BlackJackAPI.repository.PlayerRepository;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+/**
+ * ReactiveUserDetailsService implementation for player authentication.
+ * Loads player details from the repository for security authentication.
+ *
+ * @author Ulises Lafuente
+ */
 @Service
 public class PlayerUserDetailsService implements ReactiveUserDetailsService {
 

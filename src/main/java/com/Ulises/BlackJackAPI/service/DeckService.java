@@ -1,9 +1,9 @@
 package com.Ulises.BlackJackAPI.service;
 
-import com.Ulises.BlackJackAPI.model.entity.DeckEntity;
-import com.Ulises.BlackJackAPI.model.enums.Rank;
-import com.Ulises.BlackJackAPI.model.enums.Suit;
-import com.Ulises.BlackJackAPI.model.valueobject.Card;
+import com.Ulises.BlackJackAPI.domain.entity.DeckEntity;
+import com.Ulises.BlackJackAPI.domain.enums.Rank;
+import com.Ulises.BlackJackAPI.domain.enums.Suit;
+import com.Ulises.BlackJackAPI.domain.valueobject.Card;
 import com.Ulises.BlackJackAPI.repository.DeckRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -34,21 +34,26 @@ public class DeckService {
     }
 
     public Mono<Card> drawCard(Long gameId) {
-        return deckRepository.findFirstByGameIdAndDrawnFalseOrderById(gameId)
+        return deckRepository.findFirstAvailableByGameId(gameId)
                 .flatMap(card -> {
-                    card.setDrawn(true);
-                    return deckRepository.save(card)
-                            .map(saved -> new Card(saved.getSuit(), saved.getRank()));
+                    String rankStr = card.getRank();
+                    if (rankStr == null) {
+                        return Mono.error(new RuntimeException("Card rank is null from database"));
+                    }
+                    Card cardObj = new Card(card.getSuit(), Rank.valueOf(rankStr));
+                    return deckRepository.markAsDrawn(card.getId()).thenReturn(cardObj);
                 });
     }
 
     public Flux<Card> drawCards(Long gameId, int count) {
-        return deckRepository.findByGameIdAndDrawnFalseOrderById(gameId)
-                .take(count)
+        return deckRepository.findAvailableByGameId(gameId, count)
                 .flatMap(card -> {
-                    card.setDrawn(true);
-                    return deckRepository.save(card)
-                            .map(saved -> new Card(saved.getSuit(), saved.getRank()));
+                    String rankStr = card.getRank();
+                    if (rankStr == null) {
+                        return Mono.error(new RuntimeException("Card rank is null from database"));
+                    }
+                    Card cardObj = new Card(card.getSuit(), Rank.valueOf(rankStr));
+                    return deckRepository.markAsDrawn(card.getId()).thenReturn(cardObj);
                 });
     }
 

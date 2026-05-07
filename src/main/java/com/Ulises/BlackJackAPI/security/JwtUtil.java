@@ -9,6 +9,12 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+/**
+ * Utility class for JWT token operations.
+ * Handles token generation, validation, and claims extraction.
+ *
+ * @author Ulises Lafuente
+ */
 @Component
 public class JwtUtil {
 

@@ -1,8 +1,14 @@
 package com.Ulises.BlackJackAPI.dto;
 
-import com.Ulises.BlackJackAPI.model.enums.Rank;
-import com.Ulises.BlackJackAPI.model.enums.Suit;
+import com.Ulises.BlackJackAPI.domain.enums.Rank;
+import com.Ulises.BlackJackAPI.domain.enums.Suit;
 
+/**
+ * DTO for card responses.
+ * Contains card details including suit, rank, value, and hidden state.
+ *
+ * @author Ulises Lafuente
+ */
 public class CardResponse {
     private Suit suit;
     private Rank rank;

@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
+/**
+ * REST Controller for player rankings.
+ * Provides leaderboard data based on player performance.
+ *
+ * @author Ulises Lafuente
+ */
 @RestController
 @RequestMapping("/ranking")
 public class RankingController {

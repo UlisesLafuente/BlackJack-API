@@ -1,5 +1,12 @@
 package com.Ulises.BlackJackAPI.dto;
 
+/**
+ * Generic API response wrapper.
+ * Provides a standardized format for all API responses.
+ *
+ * @param <T> The data type of the response
+ * @author Ulises Lafuente
+ */
 public class ApiResponse<T> {
     private int code;
     private String message;

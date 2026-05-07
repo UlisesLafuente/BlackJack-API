@@ -1,5 +1,10 @@
 package com.Ulises.BlackJackAPI.dto;
 
+/**
+ * DTO for player registration requests.
+ *
+ * @author Ulises Lafuente
+ */
 public class RegisterRequest {
     private String username;
     private String password;

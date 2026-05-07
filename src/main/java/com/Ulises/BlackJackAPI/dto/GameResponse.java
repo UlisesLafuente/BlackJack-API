@@ -1,9 +1,15 @@
 package com.Ulises.BlackJackAPI.dto;
 
-import com.Ulises.BlackJackAPI.model.enums.GameResult;
-import com.Ulises.BlackJackAPI.model.enums.GameStatus;
+import com.Ulises.BlackJackAPI.domain.enums.GameResult;
+import com.Ulises.BlackJackAPI.domain.enums.GameStatus;
 import java.util.List;
 
+/**
+ * DTO representing a game state response.
+ * Contains game details including bets, scores, and hands.
+ *
+ * @author Ulises Lafuente
+ */
 public class GameResponse {
     private Long id;
     private Long playerId;

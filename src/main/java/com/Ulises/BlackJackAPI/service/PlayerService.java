@@ -3,12 +3,18 @@ package com.Ulises.BlackJackAPI.service;
 import com.Ulises.BlackJackAPI.dto.PlayerResponse;
 import com.Ulises.BlackJackAPI.dto.RankingResponse;
 import com.Ulises.BlackJackAPI.exception.PlayerNotFoundException;
-import com.Ulises.BlackJackAPI.model.entity.PlayerEntity;
-import com.Ulises.BlackJackAPI.model.enums.GameResult;
+import com.Ulises.BlackJackAPI.domain.entity.PlayerEntity;
+import com.Ulises.BlackJackAPI.domain.enums.GameResult;
 import com.Ulises.BlackJackAPI.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+/**
+ * Service for managing player operations.
+ * Handles player retrieval, username updates, score management, and rankings.
+ *
+ * @author Ulises Lafuente
+ */
 @Service
 public class PlayerService {
 

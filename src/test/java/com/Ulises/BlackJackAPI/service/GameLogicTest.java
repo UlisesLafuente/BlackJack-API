@@ -1,8 +1,8 @@
 package com.Ulises.BlackJackAPI.service;
 
-import com.Ulises.BlackJackAPI.model.enums.Rank;
-import com.Ulises.BlackJackAPI.model.enums.Suit;
-import com.Ulises.BlackJackAPI.model.valueobject.Card;
+import com.Ulises.BlackJackAPI.domain.enums.Rank;
+import com.Ulises.BlackJackAPI.domain.enums.Suit;
+import com.Ulises.BlackJackAPI.domain.valueobject.Card;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

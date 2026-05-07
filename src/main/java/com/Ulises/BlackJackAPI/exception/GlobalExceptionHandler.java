@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import reactor.core.publisher.Mono;
 
+/**
+ * Global exception handler for the API.
+ * Handles all exceptions and returns standardized error responses.
+ *
+ * @author Ulises Lafuente
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

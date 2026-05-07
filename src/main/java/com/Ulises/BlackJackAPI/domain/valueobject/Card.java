@@ -1,7 +1,7 @@
-package com.Ulises.BlackJackAPI.model.valueobject;
+package com.Ulises.BlackJackAPI.domain.valueobject;
 
-import com.Ulises.BlackJackAPI.model.enums.Rank;
-import com.Ulises.BlackJackAPI.model.enums.Suit;
+import com.Ulises.BlackJackAPI.domain.enums.Rank;
+import com.Ulises.BlackJackAPI.domain.enums.Suit;
 
 public class Card {
     private final Suit suit;
