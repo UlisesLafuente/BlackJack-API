@@ -1,10 +1,16 @@
 package com.Ulises.BlackJackAPI.controller;
 
-import com.Ulises.BlackJackAPI.dto.*;
+import com.Ulises.BlackJackAPI.dto.ApiResponse;
+import com.Ulises.BlackJackAPI.dto.AuthResponse;
+import com.Ulises.BlackJackAPI.dto.LoginRequest;
+import com.Ulises.BlackJackAPI.dto.RegisterRequest;
 import com.Ulises.BlackJackAPI.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 /**
