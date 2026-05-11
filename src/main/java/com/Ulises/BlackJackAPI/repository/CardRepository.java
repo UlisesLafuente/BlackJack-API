@@ -18,4 +18,9 @@ public interface CardRepository extends ReactiveCrudRepository<CardEntity, Long>
 
     @Query("SELECT * FROM cards WHERE hand_id = :handId")
     Flux<CardEntity> findByHandId(Long handId);
+
+    @Query("SELECT c.* FROM cards c " +
+           "INNER JOIN hands h ON c.hand_id = h.id " +
+           "WHERE h.game_id = :gameId ORDER BY h.id, c.id")
+    Flux<CardEntity> findAllByGameId(Long gameId);
 }

@@ -6,6 +6,7 @@ import com.Ulises.BlackJackAPI.dto.PlayerResponse;
 import com.Ulises.BlackJackAPI.dto.RankingResponse;
 import com.Ulises.BlackJackAPI.exception.PlayerNotFoundException;
 import com.Ulises.BlackJackAPI.repository.PlayerRepository;
+import com.Ulises.BlackJackAPI.domain.services.GameRulesEngine;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -19,9 +20,11 @@ import reactor.core.publisher.Mono;
 public class PlayerService {
 
     private final PlayerRepository playerRepository;
+    private final GameRulesEngine rulesEngine;
 
-    public PlayerService(PlayerRepository playerRepository) {
+    public PlayerService(PlayerRepository playerRepository, GameRulesEngine rulesEngine) {
         this.playerRepository = playerRepository;
+        this.rulesEngine = rulesEngine;
     }
 
     public Mono<PlayerResponse> getPlayerById(Long id) {
@@ -48,8 +51,7 @@ public class PlayerService {
     public Mono<PlayerEntity> updateScore(Long playerId, GameResult result, int bet, int insuranceBet) {
         return playerRepository.findById(playerId)
                 .flatMap(player -> {
-                    int scoreChange = calculateScoreChange(result, bet, insuranceBet);
-                    player.setScore(player.getScore() + scoreChange);
+                    player.setScore(player.getScore() + rulesEngine.calculateScoreChange(result, bet, insuranceBet));
                     return playerRepository.save(player);
                 });
     }
@@ -69,15 +71,5 @@ public class PlayerService {
                 .map(p -> new PlayerResponse(p.getId(), p.getUsername(), p.getScore()))
                 .collectList()
                 .map(RankingResponse::new);
-    }
-
-    private int calculateScoreChange(GameResult result, int bet, int insuranceBet) {
-        return switch (result) {
-            case WIN, BLACKJACK -> (int) (bet * 1.5);
-            case LOSE, PLAYER_BUST -> -bet;
-            case PUSH -> 0;
-            case INSURANCE_WIN -> insuranceBet * 2;
-            case INSURANCE_LOSE -> -insuranceBet;
-        };
     }
 }

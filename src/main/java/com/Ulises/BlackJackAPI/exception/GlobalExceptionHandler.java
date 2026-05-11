@@ -1,11 +1,14 @@
 package com.Ulises.BlackJackAPI.exception;
 
 import com.Ulises.BlackJackAPI.dto.ApiResponse;
+import com.Ulises.BlackJackAPI.exception.InvalidCredentialsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import reactor.core.publisher.Mono;
+
+import java.util.stream.Collectors;
 
 /**
  * Global exception handler for the API.
@@ -32,6 +35,21 @@ public class GlobalExceptionHandler {
     public Mono<ResponseEntity<ApiResponse<Void>>> handleInvalidMove(InvalidMoveException ex) {
         return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ApiResponse.error(400, ex.getMessage())));
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public Mono<ResponseEntity<ApiResponse<Void>>> handleInvalidCredentials(InvalidCredentialsException ex) {
+        return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(ApiResponse.error(401, "Invalid credentials")));
+    }
+
+    @ExceptionHandler(org.springframework.web.bind.MethodArgumentNotValidException.class)
+    public Mono<ResponseEntity<ApiResponse<Void>>> handleValidationErrors(org.springframework.web.bind.MethodArgumentNotValidException ex) {
+        String errors = ex.getBindingResult().getFieldErrors().stream()
+                .map(e -> e.getField() + ": " + e.getDefaultMessage())
+                .collect(Collectors.joining(", "));
+        return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.error(400, "Validation failed: " + errors)));
     }
 
     @ExceptionHandler(RuntimeException.class)

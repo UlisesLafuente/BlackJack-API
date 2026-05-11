@@ -72,6 +72,7 @@ class GameServiceTest {
         when(deckService.createDeckForGame(1L)).thenReturn(Mono.empty());
         when(gameRepository.findById(1L)).thenReturn(Mono.just(game));
         when(handRepository.findByGameId(1L)).thenReturn(Flux.empty());
+        when(cardRepository.findAllByGameId(1L)).thenReturn(Flux.empty());
 
         StepVerifier.create(gameService.createGame(1L))
                 .assertNext(response -> assertNotNull(response))
@@ -86,6 +87,7 @@ class GameServiceTest {
 
         when(gameRepository.findByIdAndPlayerId(1L, 1L)).thenReturn(Mono.just(game));
         when(handRepository.findByGameId(1L)).thenReturn(Flux.empty());
+        when(cardRepository.findAllByGameId(1L)).thenReturn(Flux.empty());
 
         StepVerifier.create(gameService.getGame(1L, 1L))
                 .assertNext(response -> assertNotNull(response))

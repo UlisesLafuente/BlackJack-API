@@ -6,6 +6,7 @@ import com.Ulises.BlackJackAPI.dto.PlayerResponse;
 import com.Ulises.BlackJackAPI.dto.RankingResponse;
 import com.Ulises.BlackJackAPI.exception.PlayerNotFoundException;
 import com.Ulises.BlackJackAPI.repository.PlayerRepository;
+import com.Ulises.BlackJackAPI.domain.services.GameRulesEngine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,12 +28,14 @@ class PlayerServiceTest {
 
     @Mock
     private PlayerRepository playerRepository;
+    @Mock
+    private GameRulesEngine rulesEngine;
 
     private PlayerService playerService;
 
     @BeforeEach
     void setUp() {
-        playerService = new PlayerService(playerRepository);
+        playerService = new PlayerService(playerRepository, rulesEngine);
     }
 
     @Test
@@ -114,6 +118,7 @@ class PlayerServiceTest {
         player.setScore(100);
 
         when(playerRepository.findById(1L)).thenReturn(Mono.just(player));
+        when(rulesEngine.calculateScoreChange(GameResult.WIN, 10, 0)).thenReturn(15);
         when(playerRepository.save(any(PlayerEntity.class))).thenAnswer(invocation -> Mono.just(invocation.getArgument(0)));
 
         StepVerifier.create(playerService.updateScore(1L, GameResult.WIN, 10, 0))
@@ -128,6 +133,7 @@ class PlayerServiceTest {
         player.setScore(100);
 
         when(playerRepository.findById(1L)).thenReturn(Mono.just(player));
+        when(rulesEngine.calculateScoreChange(GameResult.LOSE, 10, 0)).thenReturn(-10);
         when(playerRepository.save(any(PlayerEntity.class))).thenAnswer(invocation -> Mono.just(invocation.getArgument(0)));
 
         StepVerifier.create(playerService.updateScore(1L, GameResult.LOSE, 10, 0))
@@ -142,6 +148,7 @@ class PlayerServiceTest {
         player.setScore(100);
 
         when(playerRepository.findById(1L)).thenReturn(Mono.just(player));
+        when(rulesEngine.calculateScoreChange(GameResult.BLACKJACK, 10, 0)).thenReturn(15);
         when(playerRepository.save(any(PlayerEntity.class))).thenAnswer(invocation -> Mono.just(invocation.getArgument(0)));
 
         StepVerifier.create(playerService.updateScore(1L, GameResult.BLACKJACK, 10, 0))
@@ -156,6 +163,7 @@ class PlayerServiceTest {
         player.setScore(100);
 
         when(playerRepository.findById(1L)).thenReturn(Mono.just(player));
+        when(rulesEngine.calculateScoreChange(GameResult.PUSH, 10, 0)).thenReturn(0);
         when(playerRepository.save(any(PlayerEntity.class))).thenAnswer(invocation -> Mono.just(invocation.getArgument(0)));
 
         StepVerifier.create(playerService.updateScore(1L, GameResult.PUSH, 10, 0))

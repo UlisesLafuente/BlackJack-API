@@ -52,8 +52,7 @@ src/main/java/com/Ulises/BlackJackAPI/
 │   ├── PlayerUserDetails.java          # Usuario personalizado
 │   └── PlayerUserDetailsService.java  # Carga de usuarios
 ├── config/                             # Configuración
-│   ├── SecurityConfig.java             # Reglas de seguridad
-│   └── R2dbcConfig.java                # Configuración de BD
+│   └── SecurityConfig.java             # Reglas de seguridad
 ├── dto/                                # Objetos de transferencia
 │   ├── ApiResponse.java                # Respuesta genérica
 │   ├── AuthResponse.java               # Token y datos de usuario
@@ -84,15 +83,11 @@ src/main/java/com/Ulises/BlackJackAPI/
     │   ├── HandEntity.java
     │   ├── CardEntity.java
     │   └── DeckEntity.java
-    ├── valueobject/
-    │   └── Card.java                   # Value object para cartas
     ├── factory/
     │   └── CardFactory.java            # Factoría de entidades
     └── services/                       # Servicios de dominio
         ├── GameRulesEngine.java        # Motor de reglas del juego
-        ├── ScoreCalculator.java        # Calculadora de puntuación
-        ├── GameActionService.java      # Acciones del juego
-        └── PlayerScoreService.java     # Gestión de puntuación
+        └── ScoreCalculator.java        # Calculadora de puntuación
 ```
 
 > **Nota**: La estructura sigue el patrón DDD (Domain-Driven Design), donde `domain/` contiene todos los elementos del dominio del negocio (enums, entidades, value objects, y servicios).
@@ -132,7 +127,7 @@ src/main/java/com/Ulises/BlackJackAPI/
 
 ## Validación
 
-El programa pasó 25 tests unitarios cubriendo:
+El programa pasó 86 tests unitarios cubriendo:
 - Lógica de puntuación de cartas
 - Reglas del juego
 - Generación y validación de JWT

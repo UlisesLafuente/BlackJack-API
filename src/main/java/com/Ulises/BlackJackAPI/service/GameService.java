@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Service for managing blackjack game operations.
@@ -83,7 +85,7 @@ public class GameService {
         return gameRepository.findByIdAndPlayerId(gameId, playerId)
                 .switchIfEmpty(Mono.error(new GameNotFoundException("Game not found")))
                 .flatMap(game -> {
-                    game.setStatus(GameStatus.FINISHED);
+                    game.setStatus(GameStatus.CANCELLED);
                     game.setResult(GameResult.LOSE);
                     return gameRepository.save(game);
                 })
@@ -442,15 +444,21 @@ int score = scoreCalculator.calculateHandScore(cards);
 
     private Mono<GameResponse> loadGameDetails(GameEntity game, boolean revealCroupier) {
         return handRepository.findByGameId(game.getId())
-                .flatMap(hand -> cardRepository.findByHandIdOrderById(hand.getId())
+                .collectList()
+                .flatMap(hands -> cardRepository.findAllByGameId(game.getId())
                         .collectList()
                         .map(cards -> {
-                            HandWithCards hwc = new HandWithCards();
-                            hwc.hand = hand;
-                            hwc.cards = cards;
-                            return hwc;
+                            Map<Long, List<CardEntity>> cardsByHand = cards.stream()
+                                    .collect(Collectors.groupingBy(CardEntity::getHandId));
+                            return hands.stream()
+                                    .map(hand -> {
+                                        HandWithCards hwc = new HandWithCards();
+                                        hwc.hand = hand;
+                                        hwc.cards = cardsByHand.getOrDefault(hand.getId(), List.of());
+                                        return hwc;
+                                    })
+                                    .toList();
                         }))
-                .collectList()
                 .map(handCardsList -> mapToGameResponseWithHands(game, handCardsList, revealCroupier));
     }
 

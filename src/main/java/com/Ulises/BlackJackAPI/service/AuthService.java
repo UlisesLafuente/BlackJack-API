@@ -4,6 +4,7 @@ import com.Ulises.BlackJackAPI.domain.entity.PlayerEntity;
 import com.Ulises.BlackJackAPI.dto.AuthResponse;
 import com.Ulises.BlackJackAPI.dto.LoginRequest;
 import com.Ulises.BlackJackAPI.dto.RegisterRequest;
+import com.Ulises.BlackJackAPI.exception.InvalidCredentialsException;
 import com.Ulises.BlackJackAPI.exception.PlayerNotFoundException;
 import com.Ulises.BlackJackAPI.repository.PlayerRepository;
 import com.Ulises.BlackJackAPI.security.JwtUtil;
@@ -34,7 +35,7 @@ public class AuthService {
         return playerRepository.existsByUsername(request.getUsername())
                 .flatMap(exists -> {
                     if (exists) {
-                        return Mono.error(new RuntimeException("Username already exists"));
+                        return Mono.error(new InvalidCredentialsException("Invalid credentials"));
                     }
                     PlayerEntity player = new PlayerEntity(
                             request.getUsername(),
@@ -55,7 +56,7 @@ public class AuthService {
                         String token = jwtUtil.generateToken(player.getUsername(), player.getId());
                         return Mono.just(new AuthResponse(token, player.getId(), player.getUsername(), player.getScore()));
                     }
-                    return Mono.error(new RuntimeException("Invalid credentials"));
+                    return Mono.error(new InvalidCredentialsException("Invalid credentials"));
                 });
     }
 

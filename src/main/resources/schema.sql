@@ -22,6 +22,10 @@ CREATE TABLE IF NOT EXISTS games (
     FOREIGN KEY (player_id) REFERENCES players(id) ON DELETE CASCADE
 );
 
+CREATE INDEX idx_games_player_id ON games(player_id);
+CREATE INDEX idx_games_status ON games(status);
+CREATE INDEX idx_games_created_at ON games(created_at);
+
 CREATE TABLE IF NOT EXISTS hands (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     game_id BIGINT NOT NULL,
@@ -30,6 +34,9 @@ CREATE TABLE IF NOT EXISTS hands (
     score INT DEFAULT 0,
     FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE CASCADE
 );
+
+CREATE INDEX idx_hands_game_id ON hands(game_id);
+CREATE INDEX idx_hands_game_type ON hands(game_id, type);
 
 CREATE TABLE IF NOT EXISTS cards (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -41,6 +48,8 @@ CREATE TABLE IF NOT EXISTS cards (
     FOREIGN KEY (hand_id) REFERENCES hands(id) ON DELETE CASCADE
 );
 
+CREATE INDEX idx_cards_hand_id ON cards(hand_id);
+
 CREATE TABLE IF NOT EXISTS decks (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     game_id BIGINT NOT NULL,
@@ -50,3 +59,6 @@ CREATE TABLE IF NOT EXISTS decks (
     drawn BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE CASCADE
 );
+
+CREATE INDEX idx_decks_game_id ON decks(game_id);
+CREATE INDEX idx_decks_game_drawn ON decks(game_id, drawn);
