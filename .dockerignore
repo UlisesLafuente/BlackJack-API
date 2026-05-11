@@ -1,0 +1,45 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+doc/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.docker/
+
+# Environment
+.env
+.env.local
+
+# Test files
+src/test/
+*.test
+*Test*.java
+
+# Build files
+.mvn/
+mvnw
+mvnw.cmd
+
+# Jacoco
+jacoco/
+target/site/jacoco/
