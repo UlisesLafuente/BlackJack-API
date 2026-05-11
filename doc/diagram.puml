@@ -42,7 +42,7 @@ package "com.Ulises.BlackJackAPI.domain.enums" #FFFFDD {
 }
 
 package "com.Ulises.BlackJackAPI.domain.valueobject" #FFDDEE {
-    class Card <<Value Object>>
+    ' Card value object was removed - using CardEntity directly
 }
 
 package "com.Ulises.BlackJackAPI.repository" #EEDDFF {
@@ -144,10 +144,12 @@ GameEntity --> "*" HandEntity
 HandEntity --> "*" CardEntity
 GameEntity --> "*" DeckEntity
 
-' Value Object relationships
+' Factory relationships
 CardFactory ..> CardEntity
 CardFactory ..> HandEntity
-CardFactory ..> Card
+CardFactory ..> DrawnCard
+
+note right of DrawnCard : Record in DeckService\nfor drawn cards
 
 ' Note about ScoreCalculator and GameRulesEngine
 note right of GameRulesEngine : Used in GameService for\ngame logic and scoring

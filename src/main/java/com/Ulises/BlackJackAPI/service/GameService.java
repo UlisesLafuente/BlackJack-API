@@ -178,11 +178,11 @@ int score = scoreCalculator.calculateHandScore(cards);
                         .defaultIfEmpty(false))
                 .flatMap(canInsurance -> {
                     if (Boolean.TRUE.equals(canInsurance)) {
-                        return mapToGameResponseWithMessage(game, "Insurance available");
+                        return mapToGameResponseWithMessage(game, "Insurance available - your turn: HIT, STAND, DOUBLE, SPLIT");
                     }
-                    return croupierTurn(game).onErrorResume(e -> mapToGameResponse(game));
+                    return mapToGameResponseWithMessage(game, "Your turn: HIT, STAND, DOUBLE, SPLIT");
                 })
-                .onErrorResume(e -> croupierTurn(game));
+                .onErrorResume(e -> mapToGameResponse(game));
     }
 
     private Mono<GameResponse> processBlackjack(GameEntity game) {
@@ -366,7 +366,7 @@ int score = scoreCalculator.calculateHandScore(cards);
                     if (saved.getScore() > 21) {
                         return checkAllHandsPlayed(game, saved);
                     }
-                    return croupierTurn(game).onErrorResume(e -> loadGameDetails(game, false));
+                    return mapToGameResponseWithMessage(game, "Your turn: HIT, STAND, DOUBLE, SPLIT");
                 });
     }
 
