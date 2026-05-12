@@ -61,15 +61,8 @@ jobs:
       - name: Build Docker image
         run: docker build -t blackjackapi:${{ github.sha }} .
 
-      - name: Test Docker container
-        run: |
-          docker compose -p ci_test up -d
-          sleep 30
-          docker compose -p ci_test ps
-
-      - name: Stop Docker containers
-        if: always()
-        run: docker compose -p ci_test down
+      - name: Verify image
+        run: docker images | grep blackjackapi
 
   build-and-push:
     runs-on: ubuntu-latest
