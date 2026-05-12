@@ -63,13 +63,13 @@ jobs:
 
       - name: Test Docker container
         run: |
-          docker compose up -d mysql
+          docker compose -p ci_test up -d
           sleep 30
-          docker compose ps
+          docker compose -p ci_test ps
 
       - name: Stop Docker containers
         if: always()
-        run: docker compose down
+        run: docker compose -p ci_test down
 
   build-and-push:
     runs-on: ubuntu-latest
