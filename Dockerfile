@@ -30,11 +30,11 @@ USER appuser
 # Expose port
 EXPOSE 8080
 
-# Environment variables with defaults
+# Environment variables with defaults (secrets deben pasarse en runtime)
 ENV DB_URL=r2dbc:mysql://mysql:3306/blackjack
-ENV DB_USERNAME=root
-ENV DB_PASSWORD=root
-ENV JWT_SECRET=dGhpcy1pcy1hLXNlY3VyZS1qd3Qtc2VjcmV0LWtleS1mb3ItYmxhY2tqYWNrLWFwaS1wcm9qZWN0LTI1Ng==
+ENV DB_USERNAME=${DB_USERNAME:-root}
+ENV DB_PASSWORD=${DB_PASSWORD:-}
+ENV JWT_SECRET=${JWT_SECRET:-}
 ENV JWT_EXPIRATION=86400000
 ENV SERVER_PORT=8080
 
