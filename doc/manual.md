@@ -228,8 +228,8 @@ curl -X POST http://localhost:8080/game/1/play \
 curl -X GET http://localhost:8080/game/1 \
   -H "Authorization: Bearer TOKEN"
 
-# 4. Si tienes 10-11, puedes dobrar
-# O simplemente tomar cartas hastaPlantartete
+# 4. Si tienes 10-11, puedes doblar
+# O simplemente tomar cartas hasta plantarte
 curl -X POST http://localhost:8080/game/1/play \
   -H "Authorization: Bearer TOKEN" \
   -H "Content-Type: application/json" \
