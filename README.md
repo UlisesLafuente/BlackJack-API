@@ -4,7 +4,7 @@ API REST para jugar al Blackjack de forma reactiva con Spring Boot.
 
 ## Características
 
-- Juego completo de Blackjack (hit, stand, double, split, insurance, surrender)
+- Juego completo de Blackjack (hit, stand, double, split, insurance)
 - Sistema de autenticación JWT seguro
 - Sistema de Ranking de jugadores
 - Programación reactiva con Spring WebFlux
