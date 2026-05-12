@@ -63,7 +63,7 @@ jobs:
 
       - name: Test Docker container
         run: |
-          docker compose up -d
+          docker compose up -d mysql
           sleep 30
           docker compose ps
 
