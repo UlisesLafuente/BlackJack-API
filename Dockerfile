@@ -30,13 +30,8 @@ USER appuser
 # Expose port
 EXPOSE 8080
 
-# Environment variables with defaults (secrets deben pasarse en runtime)
-ENV DB_URL=r2dbc:mysql://mysql:3306/blackjack
-ENV DB_USERNAME=${DB_USERNAME:-root}
-ENV DB_PASSWORD=${DB_PASSWORD:-}
-ENV JWT_SECRET=${JWT_SECRET:-}
-ENV JWT_EXPIRATION=86400000
-ENV SERVER_PORT=8080
+# Expose port
+EXPOSE 8080
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
